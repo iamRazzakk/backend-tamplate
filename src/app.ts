@@ -30,8 +30,8 @@ app.use(session({
 }));
 
 // Initialize Passport
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 //router
 app.use('/api/v1', router);

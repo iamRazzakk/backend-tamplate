@@ -119,7 +119,7 @@ userSchema.pre('save', async function (next) {
     }
   
     //password hash
-    this.password = await bcrypt.hash( this.password, Number(config.bcrypt_salt_rounds));
+    this.password = await bcrypt.hash( this.password, Number(config.bcrypt_salt_rounds || 12));
     next();
 });
 export const User = model<IUser, UserModal>("User", userSchema)

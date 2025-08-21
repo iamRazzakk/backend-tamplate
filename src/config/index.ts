@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
+import { logger } from "../shared/logger";
 dotenv.config({path: path.join(process.cwd(), '.env')});
-
 export default{
     ip_address: process.env.IP,
     port: process.env.PORT,
@@ -33,8 +33,8 @@ export default{
         facebook_client_secret: process.env.FACEBOOK_CLIENT_SECRET
     },
     admin: {
-        email:process.env.ADMIN_EMAIL,
-        password: process.env.ADMIN_PASSWORD
+        email:process.env.SUPER_ADMIN_EMAIL,
+        password: process.env.SUPER_ADMIN_PASSWORD
     },
     twilio: {
         accountSid: process.env.TWILIO_ACCOUNT_SID,

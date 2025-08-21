@@ -8,7 +8,7 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nadir Hossain",
+  "author": "Abdur Razzak",
   "license": "ISC",
   "description": "",
   "devDependencies": {
