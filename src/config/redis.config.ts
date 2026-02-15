@@ -4,7 +4,7 @@ import colors from "colors";
 
 const redisClient = new Redis({
   host: "localhost",
-  port: 6379,
+  port: 6389,
   retryStrategy: (times) => {
     const delay = Math.min(times * 50, 2000);
     return delay;
