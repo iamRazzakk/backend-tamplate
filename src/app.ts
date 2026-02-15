@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //file retrieve
 app.use(express.static('uploads'));
+app.use(express.static("public"));
 
 // Session middleware (must be before passport initialization)
 app.use(session({
@@ -35,7 +36,7 @@ app.use(session({
 //router
 app.use('/api/v1', router);
 
-app.get("/", (req: Request, res: Response)=>{
+app.get("/", (req: Request, res: Response) => {
     res.send("Hey Backend, How can I assist you ");
 })
 
@@ -43,7 +44,7 @@ app.get("/", (req: Request, res: Response)=>{
 app.use(globalErrorHandler);
 
 // handle not found route
-app.use((req: Request, res: Response)=>{
+app.use((req: Request, res: Response) => {
     res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Not Found",

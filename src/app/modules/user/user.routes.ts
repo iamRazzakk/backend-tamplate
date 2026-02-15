@@ -17,7 +17,6 @@ router.get(
   UserController.getUserProfile
 );
 
-router.post("/bulk-create", UserController.createBultUsers);
 
 router.post(
   "/create-admin",
@@ -27,7 +26,11 @@ router.post(
 
 router
   .route("/")
-  .post(UserController.createUser)
+  .post(
+    getUploadFields(),
+    validateRequest(UserValidation.createUserZodSchema),
+    UserController.createUser
+  )
   .patch(
     auth(USER_ROLES.ADMIN, USER_ROLES.USER),
     getUploadFields(),

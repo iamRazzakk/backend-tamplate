@@ -17,7 +17,6 @@ interface IAuthenticationProps {
 // Main User interface
 export type IUser = {
   name: string;
-  appId: string;
   role: USER_ROLES;
   contact: string;
   email: string;

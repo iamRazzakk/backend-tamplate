@@ -10,11 +10,7 @@ const userSchema = new Schema<IUser, UserModal>(
   {
     name: {
       type: String,
-      required: false,
-    },
-    appId: {
-      type: String,
-      required: false,
+      required: true,
     },
     role: {
       type: String,
@@ -23,18 +19,24 @@ const userSchema = new Schema<IUser, UserModal>(
     },
     email: {
       type: String,
-      required: false,
+      required: [true, "Email is required!"],
+      trim: true,
       unique: true,
       lowercase: true,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Please provide a valid email!",
+      ],
       index: true,
     },
     contact: {
       type: String,
-      required: false,
+      required: [true, "Contact is required!"],
+      match: [/^\+?[1-9]\d{1,14}$/, "Please provide a valid contact number!"],
     },
     password: {
       type: String,
-      required: false,
+      required: [true, "Password is required!"],
       select: 0,
       minlength: 8,
     },
@@ -44,8 +46,7 @@ const userSchema = new Schema<IUser, UserModal>(
     },
     profile: {
       type: String,
-      default:
-        "https://res.cloudinary.com/dzo4husae/image/upload/v1733459922/zfyfbvwgfgshmahyvfyk.png",
+      default: "/image.png",
     },
     verified: {
       type: Boolean,
