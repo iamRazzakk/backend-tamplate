@@ -3,8 +3,8 @@ import { logger, errorLogger } from "../shared/logger";
 import colors from "colors";
 
 const redisClient = new Redis({
-  host: "redis",
-  port: 6389,
+  host: "localhost",
+  port: 6379,
   retryStrategy: (times) => {
     const delay = Math.min(times * 50, 2000);
     return delay;

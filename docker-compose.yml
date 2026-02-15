@@ -14,9 +14,8 @@ services:
   redis:
     image: redis
     ports:
-      # - "6379:6379"
-      - "6389:6389"
-    command: redis-server --port 6389
+      - "6379:6379"
+    command: redis-server --port 6379
     volumes:
       - redisdata:/data
     restart: unless-stopped
