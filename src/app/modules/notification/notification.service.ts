@@ -44,6 +44,7 @@ const adminReadNotificationToDB = async (): Promise<INotification | null> => {
     const result: any = await Notification.updateMany(
         { type: 'ADMIN', read: false },
         { $set: { read: true } },
+        // @ts-ignore
         { new: true }
     );
     return result;

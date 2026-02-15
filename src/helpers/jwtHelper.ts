@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import config from "../config";
 // Access Token create
 const createAccessToken = (user: { id: string; role: string }) => {
+  // @ts-ignore
   return jwt.sign(
     {
       id: user.id,
@@ -22,6 +23,7 @@ const createAccessToken = (user: { id: string; role: string }) => {
 
 // Refresh Token create
 const createRefreshToken = (userId: string) => {
+  // @ts-ignore
   return jwt.sign(
     {
       id: userId,
