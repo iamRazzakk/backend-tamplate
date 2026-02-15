@@ -29,7 +29,7 @@ const getAllProductsFromDB = async (query: Record<string, unknown>) => {
   if (searchTerm) {
     const { meta, ids } = await productSearch.searchProducts(searchTerm, page, limit);
 
-    const docs = await ProductModel.find({ _id: { $in: ids } }).lean();
+    const docs = await ProductModel.find({ _id: { $in: ids } }).lean().select("-__v");
 
     const map = new Map(docs.map((d: any) => [String(d._id), d]));
 
@@ -44,7 +44,7 @@ const getAllProductsFromDB = async (query: Record<string, unknown>) => {
   }
   console.log("come from database");
 
-  const qb = new QueryBuilder(ProductModel.find(), query).filter().sort().paginate().fields();
+  const qb = new QueryBuilder(ProductModel.find().select("-__v").lean(), query).filter().sort().paginate().fields();
   const meta = await qb.getPaginationInfo();
   const products = await qb.modelQuery.lean();
   return { meta, products };
