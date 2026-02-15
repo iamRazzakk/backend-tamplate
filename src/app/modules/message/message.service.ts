@@ -2,7 +2,11 @@ import { IMessage } from './message.interface';
 import { Message } from './message.model';
 
 const sendMessageToDB = async (payload: any): Promise<IMessage> => {
+
+
+  
   // save to DB
+
   const response = await Message.create(payload);
 
   //@ts-ignore

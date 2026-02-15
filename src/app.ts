@@ -5,7 +5,6 @@ import { Morgan } from "./shared/morgan";
 import router from '../src/app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import session from "express-session";
-import passport from "./config/passport"; 
 const app = express();
 
 // morgan

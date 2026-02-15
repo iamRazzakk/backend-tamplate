@@ -1,11 +1,63 @@
-import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
-
-const createToken = (payload: object, secret: Secret, expireTime: string) => {
-    return jwt.sign(payload, secret, { expiresIn: expireTime });
+import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
+import config from "../config";
+// Access Token create
+const createAccessToken = (user: { id: string; role: string }) => {
+  return jwt.sign(
+    {
+      id: user.id,
+      role: user.role,
+      iss: config.jwt.issuer,
+      aud: config.jwt.audience,
+      tokenVersion: config.jwt.tokenVersion,
+      jti: uuidv4(), // for logout
+    },
+    config.jwt.secret,
+    {
+      expiresIn: config.jwt.accessExpiresIn,
+      algorithm: "HS256" as const,
+    }
+  );
 };
 
-const verifyToken = (token: string, secret: Secret) => {
-    return jwt.verify(token, secret) as JwtPayload;
+// Refresh Token create
+const createRefreshToken = (userId: string) => {
+  return jwt.sign(
+    {
+      id: userId,
+      jti: uuidv4(),
+      iss: config.jwt.issuer,
+      aud: config.jwt.audience,
+    },
+    config.jwt.refreshSecret,
+    {
+      expiresIn: config.jwt.refreshExpiresIn,
+    }
+  );
 };
 
-export const jwtHelper = { createToken, verifyToken };
+// Verify Access Token (full strict check)
+const verifyAccessToken = (token: string) => {
+  return jwt.verify(token, config.jwt.secret, {
+    algorithms: ["HS256"],
+    issuer: config.jwt.issuer,
+    audience: config.jwt.audience,
+    maxAge: config.jwt.accessExpiresIn,
+  }) as jwt.JwtPayload;
+};
+
+// Verify Refresh Token
+const verifyRefreshToken = (token: string) => {
+  return jwt.verify(token, config.jwt.refreshSecret, {
+    algorithms: ["HS256"],
+    issuer: config.jwt.issuer,
+    audience: config.jwt.audience,
+  }) as jwt.JwtPayload;
+};
+
+export const jwtHelpers = {
+  createAccessToken,
+  createRefreshToken,
+  verifyAccessToken,
+  verifyRefreshToken,
+};

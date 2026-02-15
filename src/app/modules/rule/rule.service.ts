@@ -25,11 +25,7 @@ const createPrivacyPolicyToDB = async (payload: IRule) => {
 }
 
 const getPrivacyPolicyFromDB = async () => {
-    const result = await Rule.findOne({ type: 'privacy' })
-    if (!result) {
-        throw new ApiError(StatusCodes.BAD_REQUEST, "Privacy policy doesn't exist!")
-    }
-    return result
+   
 }
 
 //terms and conditions

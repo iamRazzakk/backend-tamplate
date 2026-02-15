@@ -1,33 +1,25 @@
-import nodemailer from 'nodemailer';
-import config from '../config';
-import { errorLogger, logger } from '../shared/logger';
-import { ISendEmail } from '../types/email';
-
-const transporter = nodemailer.createTransport({
-    host: config.email.host,
-    port: Number(config.email.port),
-    secure: false,
-    auth: {
-        user: config.email.user,
-        pass: config.email.pass
-    },
-});
+import { emailQueue } from "../config/bullMQ.config";
+import { ISendEmail } from "../types/email";
 
 const sendEmail = async (values: ISendEmail) => {
-    try {
-        const info = await transporter.sendMail({
-            from: `"Servi" ${config.email.from}`,
-            to: values.to,
-            subject: values.subject,
-            html: values.html,
-        });
-  
-        logger.info('Mail send successfully', info.accepted);
-    } catch (error) {
-        errorLogger.error('Email', error);
+  // Queue the email instead of sending directly
+  await emailQueue.add(
+    "send-email",
+    {
+      to: values.to,
+      subject: values.subject,
+      html: values.html,
+    },
+    {
+      // Prevent duplicate jobs for same email
+
+      jobId: `email-${values.to}-${values.subject}-${Date.now()}`,
+      removeOnComplete: true,
+      removeOnFail: false,
     }
+  );
 };
 
 export const emailHelper = {
-    sendEmail
+  sendEmail,
 };
