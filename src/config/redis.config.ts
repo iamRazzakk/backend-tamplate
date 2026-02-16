@@ -2,9 +2,12 @@ import Redis from "ioredis";
 import { logger, errorLogger } from "../shared/logger";
 import colors from "colors";
 
+const redisHost = process.env.REDIS_HOST || "localhost";
+const redisPort = process.env.REDIS_PORT || 6379;
+
 const redisClient = new Redis({
-  host: "localhost",
-  port: 6379,
+  host: redisHost,
+  port: Number(redisPort),
   retryStrategy: (times) => {
     const delay = Math.min(times * 50, 2000);
     return delay;

@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
-import { v4 as uuidv4 } from "uuid";
 import config from "../config";
+import crypto from "crypto";
+
+
 // Access Token create
 const createAccessToken = (user: { id: string; role: string }) => {
   // @ts-ignore
@@ -11,7 +13,7 @@ const createAccessToken = (user: { id: string; role: string }) => {
       iss: config.jwt.issuer,
       aud: config.jwt.audience,
       tokenVersion: config.jwt.tokenVersion,
-      jti: uuidv4(), // for logout
+      jti: crypto.randomUUID()
     },
     config.jwt.secret,
     {
@@ -27,7 +29,7 @@ const createRefreshToken = (userId: string) => {
   return jwt.sign(
     {
       id: userId,
-      jti: uuidv4(),
+      jti: crypto.randomUUID(),
       iss: config.jwt.issuer,
       aud: config.jwt.audience,
     },

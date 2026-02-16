@@ -1,9 +1,12 @@
 import { Queue, QueueOptions } from "bullmq";
 import config from ".";
 
+const bullMQHost = process.env.BULLMQIP || process.env.REDIS_HOST || "localhost";
+const bullMQPort = process.env.BULLMQPORT || process.env.REDIS_PORT || 6379;
+
 export const connectionBullMQ: QueueOptions["connection"] = {
-  host: config.bullMQ.host,
-  port: Number(config.bullMQ.port),
+  host: bullMQHost,
+  port: Number(bullMQPort),
 };
 
 export const emailQueue = new Queue("emailQueue", {
