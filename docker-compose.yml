@@ -9,7 +9,7 @@ services:
     environment:
       - REDIS_HOST=localhost
       - REDIS_PORT=6379
-      - BULLMQIP=redis
+      - BULLMQIP=localhost
       - BULLMQPORT=6379
       - DATABASE_URL=mongodb://mongodb:27017/template
       - MEILI_HOST=http://meilisearch:7700
@@ -52,5 +52,5 @@ services:
 
 volumes:
   mongodata:
-  redisdata:
+  # redisdata:
   meilisearchdata:
