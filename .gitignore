@@ -3,5 +3,8 @@ uploads
 /winston
 .env
 .env
-Dockerfile
 dist
+SECURITY.md
+*.txt
+*questions.md
+*.log
