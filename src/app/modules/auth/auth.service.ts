@@ -25,7 +25,7 @@ const loginUserFromDB = async (payload: ILoginData) => {
   if (!user) {
     throw new ApiError(StatusCodes.BAD_REQUEST, "User doesn't exist!");
   }
-
+  console.log("User found:", user); // Debugging log
   // Verified check
   if (!user.verified) {
     throw new ApiError(
