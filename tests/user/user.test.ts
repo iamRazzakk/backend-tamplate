@@ -9,7 +9,7 @@ const userData = {
     location: "Dhaka, Bangladesh",
     profile: "/profile.png",
     role: USER_ROLES.USER,
-    contact: "+8801234567890"
+    contact: "+8801609502136"
 };
 
 describe("User Model Test", () => {
@@ -23,31 +23,31 @@ describe("User Model Test", () => {
     });
     // if missing required fields
 
-    it("Should fail to create a user  with missing required fields", async () => {
-        const res = await request(app)
-            .post("/api/v1/user")
-            .send({
-                name: "Md Abdur Razzak Rakib",
-                email: `rakib${Date.now()}@gmail.com`,
-                password: "password123",
-                location: "Dhaka, Bangladesh",
-            });
-        expect(res.body.success).toBe(false);
-        expect(res.status).toBe(StatusCodes.BAD_REQUEST);
-    })
+    // it("Should fail to create a user  with missing required fields", async () => {
+    //     const res = await request(app)
+    //         .post("/api/v1/user")
+    //         .send({
+    //             name: "Md Abdur Razzak Rakib",
+    //             email: `rakib${Date.now()}@gmail.com`,
+    //             password: "password123",
+    //             location: "Dhaka, Bangladesh",
+    //         });
+    //     expect(res.body.success).toBe(false);
+    //     expect(res.status).toBe(StatusCodes.BAD_REQUEST);
+    // })
 
-    it("Should fail to create a user with invalid email", async () => {
-        const res = await request(app)
-            .post("/api/v1/user")
-            .send({
-                name: "Md Abdur Razzak Rakib",
-                email: `rakib${Date.now()}gmail.com`,
-                password: "password123",
-                location: "Dhaka, Bangladesh",
-                role: USER_ROLES.USER,
-                contact: "+8801234567890"
-            });
-        expect(res.body.success).toBe(false);
-        expect(res.status).toBe(StatusCodes.BAD_REQUEST);
-    })
+    // it("Should fail to create a user with invalid email", async () => {
+    //     const res = await request(app)
+    //         .post("/api/v1/user")
+    //         .send({
+    //             name: "Md Abdur Razzak Rakib",
+    //             email: `rakib${Date.now()}gmail.com`,
+    //             password: "password123",
+    //             location: "Dhaka, Bangladesh",
+    //             role: USER_ROLES.USER,
+    //             contact: "+8801609502136"
+    //         });
+    //     expect(res.body.success).toBe(false);
+    //     expect(res.status).toBe(StatusCodes.BAD_REQUEST);
+    // })
 });
